@@ -120,4 +120,22 @@ public class GildedRoseTest {
         app.updateQuality();
         assertEquals(0, item.quality);
     }
+
+    @Test
+    void sulfurasWithIncorrectQualityShouldRemainUnchanged() {
+        Item item = new Item("Sulfuras, Hand of Ragnaros", 5, 70); // incorrect quality
+        GildedRose app = new GildedRose(new Item[] { item });
+        app.updateQuality();
+        assertEquals(70, item.quality, "Sulfuras should retain its incorrect quality as no validation fixes it");
+        assertEquals(5, item.sellIn, "Sulfuras sellIn should not change");
+    }
+
+    @Test
+    void sulfurasWithNegativeSellInRemainsUnchanged() {
+        Item item = new Item("Sulfuras, Hand of Ragnaros", -5, 80);
+        GildedRose app = new GildedRose(new Item[] { item });
+        app.updateQuality();
+        assertEquals(80, item.quality);
+        assertEquals(-5, item.sellIn);
+    }
 }

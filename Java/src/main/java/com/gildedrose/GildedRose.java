@@ -3,6 +3,8 @@ package com.gildedrose;
 import com.gildedrose.updaters.ItemUpdater;
 import com.gildedrose.updaters.ItemUpdaterFactory;
 
+import java.util.Arrays;
+
 class GildedRose {
     Item[] items;
 
@@ -11,9 +13,9 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (Item item : items) {
+        Arrays.stream(items).forEach(item -> {
             ItemUpdater updater = ItemUpdaterFactory.getUpdater(item);
             updater.update();
-        }
+        });
     }
 }
